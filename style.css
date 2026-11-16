@@ -1,0 +1,135 @@
+:root {
+  --text: #1b1f24;
+  --muted: #4a5360;
+  --border: #6b7684;
+  --accent: #0b5cad;
+  --error: #b00020;
+  --error-bg: #fdecef;
+  --ok: #0a6b2d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: #fff;
+  line-height: 1.5;
+  margin: 0;
+  padding: 1rem;
+}
+
+main { max-width: 36rem; margin: 0 auto; }
+
+[hidden] { display: none !important; }
+
+h1 { font-size: 1.6rem; margin: 0 0 .5rem; }
+h2 { font-size: 1.25rem; margin: 1rem 0 .5rem; }
+h3 { font-size: 1.05rem; margin: 0 0 .25rem; }
+
+/* Steps: only the active one is shown */
+.step { display: none; }
+.step.active { display: block; }
+
+.progress { font-weight: 600; color: var(--muted); }
+
+label { display: block; margin-top: 1rem; font-weight: 600; }
+label.check, fieldset label { font-weight: 400; margin-top: .4rem; }
+
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
+  display: block;
+  width: 100%;
+  margin-top: .25rem;
+  padding: .5rem;
+  font: inherit;
+  color: inherit;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  background: #fff;
+}
+textarea { min-height: 5rem; resize: vertical; }
+
+fieldset {
+  margin: 1rem 0 0;
+  padding: .5rem .75rem .75rem;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+legend { font-weight: 600; padding: 0 .25rem; }
+
+/* Visible keyboard focus everywhere, including programmatic heading/summary focus */
+:focus-visible,
+h2:focus,
+#error-summary:focus {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Errors: never colour alone. Thick dashed border + icon + literal "Error:" text. */
+[aria-invalid="true"] {
+  border: 3px dashed var(--error);
+  background: var(--error-bg);
+}
+fieldset[aria-invalid="true"] { border-style: dashed; }
+
+.field-error {
+  color: var(--error);
+  font-weight: 600;
+  margin-top: .25rem;
+}
+.field-error:empty { display: none; }
+.field-error:not(:empty)::before { content: "\26A0\FE0F  "; }
+
+#error-summary {
+  border: 3px solid var(--error);
+  background: var(--error-bg);
+  padding: .5rem 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+#error-summary h2 { margin-top: .25rem; color: var(--error); }
+#error-summary a { color: var(--error); font-weight: 600; }
+
+/* Password checklist: Met/Needed is written out as text; symbol is extra */
+#pwRules { list-style: none; padding-left: 0; margin: .5rem 0; }
+#pwRules li { margin: .15rem 0; }
+#pwRules li::before { display: inline-block; width: 1.5em; font-weight: 700; }
+#pwRules li[data-state="needed"]::before { content: "\2717"; color: var(--error); }
+#pwRules li[data-state="met"]::before { content: "\2713"; color: var(--ok); }
+#pwRules li[data-state="met"] .rule-state { color: var(--ok); }
+#pwRules li[data-state="needed"] .rule-state { color: var(--error); }
+
+.hint { margin: .25rem 0 0; color: var(--muted); }
+
+.buttons { display: flex; gap: .75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+button {
+  font: inherit;
+  padding: .6rem 1.1rem;
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+button[data-back], .review-group button {
+  background: #fff;
+  color: var(--accent);
+}
+button:hover { filter: brightness(.92); }
+
+/* Review */
+.review-group {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: .75rem 1rem;
+  margin-top: .75rem;
+}
+.review-group dl { margin: 0 0 .5rem; }
+.review-group dt { font-weight: 600; margin-top: .4rem; }
+.review-group dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+#projectStatus { font-weight: 600; color: var(--ok); }
+
+@media (max-width: 30rem) {
+  .buttons button { flex: 1 1 100%; }
+}
